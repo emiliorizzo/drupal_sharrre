@@ -6,8 +6,11 @@
      var pref = Drupal.settings.sharrre.pref;
      
       for(var  s in setts){
-        $( '.'+pref+s ).each(function(i, obj){
-         $( this ).sharrre(setts[s]);
+        $( '.'+pref+s.toLowerCase() ).each(function(i, obj){
+         var sobj = setts[s];
+         sobj.srv = s;
+         sobj.click = function(api, options){api.simulateClick();api.openPopup(this.srv);};
+         $( this ).sharrre(sobj);
         });
       }
     }
