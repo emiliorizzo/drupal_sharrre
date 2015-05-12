@@ -14,3 +14,40 @@ function sharrre_help($path, $arg) {
    break;
   }
 }
+
+/**
+ * Implements hook_libraries_info().
+ */
+function sharrre_libraries_info() {
+  $libraries['sharrre'] = array(
+    'name' => 'Sharrre - jQuery plugin for sharing buttons',
+    'vendor url' => 'http://sharrre.com/',
+    'download url' => 'https://github.com/Julienh/Sharrre/archive/1.3.5.zip',
+    'files' => array(
+      'js' => array(
+        'jquery.sharrre.min.js',
+      ),
+      'php' => array(
+        'sharrre.php',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+/**
+ * Implements hook_libraries().
+ */
+function sharrre_libraries() {
+  $libraries['sharrre'] = array(
+    'title' => 'Sharrre - jQuery plugin for sharing buttons',
+    'website' => 'http://sharrre.com/',
+      'js' => array(
+        'jquery.sharrre.min.js',
+      ),
+      'php' => array(
+        'sharrre.php',
+      ),
+  );
+  return $libraries;
+}
