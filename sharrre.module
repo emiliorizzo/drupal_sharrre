@@ -71,22 +71,27 @@ function sharrre_libraries() {
   return $libraries;
 }
 
+
+
+
+
 /**
  * Helper Functions
  */
  
 function _sharrre_services(){
- return array('sharrre',
-              'googleplus',
-              'facebook',
-              'twitter',
-              'digg',
-              'delicious',
-              'stumbleupon',
-              'linkedin',
-              'pinterest',
+ return array('sharrre' => '',
+              'googleplus' => '+1',
+              'facebook'=> 'like',
+              'twitter'=> 'tweet',
+              'digg'=> 'diggit',
+              'delicious'=> 'delicious',
+              'stumbleupon' => 'stumbleupon',
+              'linkedin' => 'linkedin',
+              'pinterest' => 'pin',
               );
 }
+
 
 
 function _sharrre_settings(){
@@ -114,4 +119,7 @@ function _sharrre_get_settings(){
  }
 return $vals;
 }
+
+
+
 
