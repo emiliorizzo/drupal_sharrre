@@ -87,14 +87,9 @@ function sharrre_node_view($node, $view_mode, $langcode){
    foreach($services as $service => $title){
      if ( ( $service != 'sharrre' ) && ( $setts['sharrre'][$service] ) ){
       $node->sharrre[$service] = _sharrre_icon($service,$url,$pref);
-       $send[$service] = _sharrre_bool($setts[$service]);
+       $send[$service] = _sharrre_fix_vals($setts[$service]);
        $send[$service]['urlCurl'] = '/'.$lib_path.'/sharrre.php';
-       if($service == 'googleplus'){
-        $send[$service]['share']['googlePlus'] = (bool)$setts['sharrre'][$service];
-       }
-       else{
         $send[$service]['share'][$service] = (bool)$setts['sharrre'][$service];
-       }
      }
      }
    
@@ -124,7 +119,7 @@ function sharrre_preprocess_node(&$variables) {
  
 function _sharrre_services(){
  return array('sharrre' => '',
-              'googleplus' => '+1',
+              'googlePlus' => '+1',
               'facebook'=> 'like',
               'twitter'=> 'tweet',
               'digg'=> 'diggit',
@@ -139,7 +134,7 @@ function _sharrre_services(){
  * Create Icons 
  */
 function _sharrre_icon($service,$url,$pref){
- $html = '<div class="'.$pref.$service.'" data-url="'.$url.'">';
+ $html = '<div class="'.$pref.strtolower($service).'" data-url="'.$url.'">';
  $html .= '</div>';
  return $html;
 }
@@ -171,10 +166,13 @@ return $vals;
 }
 
 
-function _sharrre_bool($arr){
+function _sharrre_fix_vals($arr){
  foreach($arr as $k => $v){
   if( ($v=='1') or ($v=='0') ){
    $arr[$k]=(boolean)$v;
+  }
+  if($k == 'title'){
+   $arr[$k]=htmlentities($v);
   }
  }
 return $arr;
