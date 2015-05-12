@@ -16,6 +16,24 @@ function sharrre_help($path, $arg) {
 }
 
 /**
+ * Implements hook_menu().
+ * */
+function sharrre_menu(){
+  $items = array();
+  $items['admin/config/sharrre'] = array(
+        'title' => 'Sharrre',
+        'description' => 'Configuration for the Sharrre module.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('sharrre_admin_form'),
+        'access arguments' => array('administer users'),
+        'file' => 'sharrre.admin.inc',
+        'type' => MENU_NORMAL_ITEM,
+        );
+  return $items;
+}
+
+
+/**
  * Implements hook_libraries_info().
  */
 function sharrre_libraries_info() {
@@ -38,6 +56,7 @@ function sharrre_libraries_info() {
 /**
  * Implements hook_libraries().
  */
+ 
 function sharrre_libraries() {
   $libraries['sharrre'] = array(
     'title' => 'Sharrre - jQuery plugin for sharing buttons',
@@ -51,3 +70,45 @@ function sharrre_libraries() {
   );
   return $libraries;
 }
+
+
+/**
+ * Helper Functions
+ */
+ 
+function _sharrre_services(){
+ return array('sharrre',
+              'googleplus',
+              'facebook',
+              'twitter',
+              'digg',
+              'delicious',
+              'stumbleupon',
+              'linkedin',
+              'pinterest',
+              );
+}
+
+/**
+ * Create Icons 
+ */
+
+
+function _sharrre_settings(){
+return array( 'title' => 'Title',
+              'shorterTotal' => 'Shorter Total',
+              'enableHover'=> 'Enable Hover',
+              'enableCounter'=> 'Enable Counter',
+              'enableTracking'=> 'Enable Tracking',
+              ); 
+}
+
+function _sharrre_get_sett($settings,$context,$prop,$def){
+ if( is_array( $settings )){
+  if( isset( $settings[$context][$prop] ) ){
+   return $settings[$context][$prop];
+  }
+ return $def;
+ }
+}
+
