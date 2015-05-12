@@ -1,0 +1,6 @@
+name = Sharrre
+description = "Drupal Sharrre Module"
+core = 7.x
+package = Social
+; Dependencies
+dependencies[] = libraries (>=2.x)
