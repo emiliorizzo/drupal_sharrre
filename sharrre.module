@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Drupal Sharrre Module - Drupal Social Networks Share Icons 
+ */
+
+/**
+ * Implements hook_help().
+ **/
+function sharrre_help($path, $arg) {
+  switch ($path) {
+   case "admin/help#sharrre":
+      return '<p>' . t("Sharrre Module") . '</p>';
+   break;
+  }
+}
