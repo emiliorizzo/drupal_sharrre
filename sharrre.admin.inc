@@ -14,10 +14,7 @@
 function sharrre_admin_form($form, &$form_state){
  $services = _sharrre_services(); 
  $settings = _sharrre_settings(); 
- $vals = variable_get('sharrre_settings',NULL);
- if( $vals ){
-  $vals = unserialize($vals);
- }
+ $vals = _sharrre_get_settings();
 
   foreach($services as $service){
    $targs = array('@service' => ucfirst($service));

@@ -71,7 +71,6 @@ function sharrre_libraries() {
   return $libraries;
 }
 
-
 /**
  * Helper Functions
  */
@@ -88,10 +87,6 @@ function _sharrre_services(){
               'pinterest',
               );
 }
-
-/**
- * Create Icons 
- */
 
 
 function _sharrre_settings(){
@@ -110,5 +105,13 @@ function _sharrre_get_sett($settings,$context,$prop,$def){
   }
  return $def;
  }
+}
+
+function _sharrre_get_settings(){ 
+ $vals = variable_get('sharrre_settings',NULL);
+ if( $vals ){
+  $vals = unserialize($vals);
+ }
+return $vals;
 }
 
