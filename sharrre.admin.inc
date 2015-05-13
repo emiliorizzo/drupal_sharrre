@@ -23,9 +23,9 @@ function sharrre_admin_form($form, &$form_state){
     '#type' => 'fieldset',
     '#title' => t('@service Settings',$targs),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
      );
-     
+
   if( $service != 'sharrre' ){
     $form[$service]['sharrre_'.$service] = array(
     '#type' => 'checkbox',
