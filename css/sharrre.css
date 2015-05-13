@@ -1,9 +1,9 @@
-  #example1{
+  .sharrre-icons{
     float:left;
-    margin:0 27% 0 27%;
+    margin:1em;
   }
   .sharrre{
-    margin:55px 0 0 50px;
+    margin:5px;
     float:left;
   }
   .sharrre .box a:hover{
