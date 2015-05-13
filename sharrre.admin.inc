@@ -15,8 +15,7 @@ function sharrre_admin_form($form, &$form_state){
  $services = _sharrre_services(); 
  $settings = _sharrre_settings(); 
  $vals = _sharrre_get_settings();
-
-  foreach($services as $service => $title){
+  foreach($services as $service => $set){
    $targs = array('@service' => ucfirst($service));
    $pref = 'sharre_'.$service;
    
@@ -40,7 +39,7 @@ function sharrre_admin_form($form, &$form_state){
     '#size' => 20, 
     '#maxlength' => 64, 
     '#title' => t('Title'),
-    '#default_value' => _sharrre_get_sett($vals,$service,'title', $title),
+    '#default_value' => _sharrre_get_sett($vals,$service,'title', $set['title']),
     '#description' => t("Text on @service icon",$targs),
     );
   }
@@ -50,7 +49,7 @@ function sharrre_admin_form($form, &$form_state){
                        '#type' => 'checkbox',
                        '#title' => $prop,
                        '#default_value' => _sharrre_get_sett($vals,$service,$prop,FALSE),
-                       '#description' => t($desc),
+                       '#description' => t($desc['desc']),
                       );
     }
    }
@@ -69,12 +68,12 @@ function sharrre_admin_form_submit($form,&$form_state){
  $settings = array_keys(_sharrre_settings()); 
  $settings = array_merge($settings, array_keys($services));
  $varr = array();
-  foreach( $services as $service => $title){
+  foreach( $services as $service => $set){
    foreach( $settings as $prop){
     if( isset( $form_state['values'][$service.'_'.$prop] ) ){
       $val = $form_state['values'][$service.'_'.$prop];
       if( ( $prop == 'title' ) && ( empty( $val ) ) ){
-       $val = $title; 
+       $val = $set['title']; 
       }
      $varr[$service][$prop] = $val;
      unset( $form_state['values'][$service.'_'.$prop] );
