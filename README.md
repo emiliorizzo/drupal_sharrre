@@ -12,12 +12,13 @@ http://sharrre.com/
 ## Configure mannualy
 Configure option in drupal interface
 
-----NOT IMPLEMENTED----
 
 ## Use with predefined styles
 Select style from interface.
 The styles include all configuration, and define wich icons show.
 
+
+-------NOT YET IMPLEMENTED---------
 ## Build Custom Style
 To build your custom style you need:
  - create folder in "styles" folder module 
