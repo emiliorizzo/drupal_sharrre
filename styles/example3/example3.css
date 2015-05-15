@@ -1,0 +1,48 @@
+.example3{
+  float:left;
+  margin:10px;
+}
+.sharrre-icons .box{
+  float:left;
+  margin:5% 8% 0 8%;
+  width:100%;
+}
+.sharrre-icons .box a{
+  color:#404040;
+  text-shadow: 0 1px 1px rgba(167,167,167,.4);
+}
+.sharrre-icons .box a:hover{
+  text-decoration:none;
+}
+.sharrre-icons .count {
+  font-weight:bold;
+  font-size:50px;
+  float:left;
+  border-right:2px solid #57b8d1;
+  line-height:40px;
+  padding-right:10px
+}
+.sharrre-icons .share {
+  float:left;
+  margin-left:10px;
+  font-size:20px;
+  width:82px;
+}
+.sharrre-icons .buttons {
+  position: absolute;
+  width:294px;
+  background-color:#fff;
+  border: 1px solid rgba(0,0,0,.2);
+  padding:10px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+.sharrre-icons .button {
+  float:left;
+  max-width:50px;
+  margin:0 10px 0 0;
+}
+.sharrre-icons .facebook {
+  margin:0 4px 0 0;
+}
