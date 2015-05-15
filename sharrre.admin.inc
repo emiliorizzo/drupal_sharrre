@@ -15,11 +15,40 @@ function sharrre_admin_form($form, &$form_state){
  $services = _sharrre_services(); 
  $settings = _sharrre_settings(); 
  $vals = _sharrre_get_settings();
+ $conf_type = variable_get('sharrre_conf_type','template');
+ 
+ //Configuration type
+ $form['conf'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Configuration type'),
+    '#collapsible' => FALSE,
+     );
+
+ $form['conf']['sharrre_conf_type']=array(
+    '#type' => 'radios',
+    '#title' => t('Select Configuration Type'),
+    '#default_value' => $conf_type,
+    '#options' => array('template' => t('Template'), 'manual' => t('Manual')),
+    '#description' => t('Select Configuration type'),
+     );
+ 
+ // Manual Configuration
+   $form['manual'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Manual Configuration'),
+    '#collapsible' => FALSE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="sharrre_conf_type"]' => array('value' => 'manual'),
+       ),
+      ),
+     );
+  
   foreach($services as $service => $set){
    $targs = array('@service' => ucfirst($service));
    $pref = 'sharre_'.$service;
    
-   $form[$service] = array(
+   $form['manual'][$service] = array(
     '#type' => 'fieldset',
     '#title' => t('@service Settings',$targs),
     '#collapsible' => TRUE,
@@ -27,14 +56,14 @@ function sharrre_admin_form($form, &$form_state){
      );
 
   if( $service != 'sharrre' ){
-    $form[$service]['sharrre_'.$service] = array(
+    $form['manual'][$service]['sharrre_'.$service] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable'),
     '#default_value' => _sharrre_get_sett($vals,'sharrre',$service,false),
     '#description' => t("Enable @service icon",$targs),
     );
     
-    $form[$service][$service.'_title'] = array(
+    $form['manual'][$service][$service.'_title'] = array(
     '#type' => 'textfield',
     '#size' => 20, 
     '#maxlength' => 64, 
@@ -45,7 +74,7 @@ function sharrre_admin_form($form, &$form_state){
   }
    foreach($settings as $prop => $desc){
     if( $prop != 'title' ){
-     $form[$service][$service.'_'.$prop] = array(
+     $form['manual'][$service][$service.'_'.$prop] = array(
                        '#type' => 'checkbox',
                        '#title' => $prop,
                        '#default_value' => _sharrre_get_sett($vals,$service,$prop,FALSE),
@@ -54,6 +83,25 @@ function sharrre_admin_form($form, &$form_state){
     }
    }
   }
+ // Template Configuration
+     $form['template'] = array(
+     '#type' => 'fieldset',
+     '#title' => t('Select Template'),
+     '#collapsible' => FALSE,
+     '#states' => array(
+      'visible' => array(
+        ':input[name="sharrre_conf_type"]' => array('value' => 'template'),
+       ),
+      ),
+     );
+    $form['template']['sharrre_template'] = array(
+    '#type' => 'select',
+    '#title' => t('Template'),
+    '#options' => _sharrre_get_templates(),
+    '#default_value' => variable_get('sharrre_template',1),
+    '#description' => t('Select template'),
+    );
+
  $form = system_settings_form($form);
  array_unshift($form['#submit'], 'sharrre_admin_form_submit');
  return $form;
@@ -62,7 +110,6 @@ function sharrre_admin_form($form, &$form_state){
  /**
  * Admin Form Submit Callback
  * **/
-
 function sharrre_admin_form_submit($form,&$form_state){
  $services = _sharrre_services(); 
  $settings = array_keys(_sharrre_settings()); 
@@ -83,5 +130,20 @@ function sharrre_admin_form_submit($form,&$form_state){
   }
  $form_state['values']['sharrre_settings'] = serialize($varr);
 }
- 
+
+function  _sharrre_get_templates(){
+ $dir = drupal_get_path('module', 'sharrre'). '/styles'; 
+ $templates = array();
+ if ($handle = opendir($dir)) {
+    while (false !== ($t = readdir($handle))) {
+         if( $t != '.' && $t != '..' ){
+          if( ( is_file($dir.'/'.$t.'/'.$t.'.css' ) ) && ( is_file($dir.'/'.$t.'/'.$t.'.js' ) ) )
+          $templates[count($templates)] = $t; 
+         }
+    }
+ closedir($handle);  
+ }
+return $templates;
+}
+
  
