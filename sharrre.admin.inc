@@ -53,12 +53,17 @@ function sharrre_admin_form($form, &$form_state){
     '#title' => t('@service Settings',$targs),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
+     '#states' => array(
+      'visible' => array(
+        ':input[name="'. 'sharrre_' . $service .'"]' => array('checked' => TRUE),
+       ),
+      ),
      );
 
   if( $service != 'sharrre' ){
-    $form['manual'][$service]['sharrre_'.$service] = array(
+    $form['conf']['sharrre_'.$service] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable'),
+    '#title' => t("Enable @service icon",$targs),
     '#default_value' => _sharrre_get_sett($vals,'sharrre',$service,false),
     '#description' => t("Enable @service icon",$targs),
     );
