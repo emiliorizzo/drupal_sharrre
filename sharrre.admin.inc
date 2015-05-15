@@ -103,7 +103,7 @@ function sharrre_admin_form($form, &$form_state){
     '#type' => 'select',
     '#title' => t('Template'),
     '#options' => _sharrre_get_templates(),
-    '#default_value' => variable_get('sharrre_template',1),
+    '#default_value' => variable_get('sharrre_template','example3'),
     '#description' => t('Select template'),
     );
 
@@ -143,7 +143,7 @@ function  _sharrre_get_templates(){
     while (false !== ($t = readdir($handle))) {
          if( $t != '.' && $t != '..' ){
           if( ( is_file($dir.'/'.$t.'/'.$t.'.css' ) ) && ( is_file($dir.'/'.$t.'/'.$t.'.js' ) ) )
-          $templates[count($templates)] = $t; 
+          $templates[$t] = $t; 
          }
     }
  closedir($handle);  
