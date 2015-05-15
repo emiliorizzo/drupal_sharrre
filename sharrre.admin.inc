@@ -1,11 +1,11 @@
 <?php
 /**
  * @file
- * Admin page callbacks for the meme_share module.
+ * Admin page callbacks for the drupal_sharrre module.
  */
 
 /**
- * Form builder; Configure meme_share module
+ * Form builder; Configure drupal_sharrre module
  *
  * @ingroup forms
  * @see system_settings_form()
@@ -114,7 +114,7 @@ function sharrre_admin_form($form, &$form_state){
  
  /**
  * Admin Form Submit Callback
- * **/
+ **/
 function sharrre_admin_form_submit($form,&$form_state){
  $services = _sharrre_services(); 
  $settings = array_keys(_sharrre_settings()); 
