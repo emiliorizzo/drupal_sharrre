@@ -27,9 +27,11 @@ function sharrre_admin_form($form, &$form_state){
     '#type' => 'radios',
     '#title' => t('Select Configuration Type'),
     '#default_value' => $conf_type,
-    '#options' => array('template' => t('Template'), 'manual' => t('Manual')),
+    '#options' => array('template' => t('Template'), 'manual' => t('Manual'),'custom' => 'Custom Template'),
     '#description' => t('Select Configuration type'),
      );
+     
+     
  
  // Manual Configuration
    $form['manual'] = array(
