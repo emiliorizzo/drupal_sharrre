@@ -128,7 +128,9 @@ function sharrre_preprocess_node(&$variables) {
    $url = $base_url . url('/node/'.$variables['node']->nid);
  
   if( isset($variables['sharrre']['icons']) ){
-  $variables['sharrre_icons'] = array('#type' => 'container','#attributes' => array('class' => array('sharrre-icons'),),);
+  $variables['sharrre_icons'] = array('#type' => 'container',
+                                      '#attributes' => array('class' => array('sharrre-icons'),),);
+   
    foreach( $variables['sharrre']['icons'] as $service => $title){
     $variables['sharrre_icons'][$service] = array(
      '#type' => 'container',
