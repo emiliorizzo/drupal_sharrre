@@ -112,8 +112,8 @@ function social_sharrre_node_view($node, $view_mode, $langcode){
                                          'setts' => drupal_json_encode($send),
                                          )), 'setting');
    
-    drupal_add_js($mod_path . '/js/sharrre.js' );
-    drupal_add_css($mod_path . '/css/sharrre.css' );
+    drupal_add_js($mod_path . '/js/social_sharrre.js' );
+    drupal_add_css($mod_path . '/css/social_sharrre.css' );
    break;
     
    case 'custom':
