@@ -141,27 +141,4 @@ function sharrre_admin_form_submit($form,&$form_state){
  $form_state['values']['sharrre_settings'] = serialize($varr);
 }
 
-function  _sharrre_get_templates($check = true){
- $templates = array('example2' => 'Example 2 from Sharrre',
-                    'example3' => 'Example 3 from Sharrre',
-                    );
-  if( $check ){
-   foreach ($templates as $t => $td) {
-    if ( !_sharrre_check_template_files($t) ){
-     unset($templates[$t]);
-    }
-   }
-  }
- return $templates;
-}
-
-function _sharrre_check_template_files($template){
-  $dir = drupal_get_path('module','sharrre') . '/styles/'.$template;
-   if( is_dir($dir) ){
-    if( is_file($dir.'/'.$template.'.js') && is_file($dir.'/'.$template.'.css') ){
-     return TRUE;
-    }
-   }
- return FALSE;
-}
  
