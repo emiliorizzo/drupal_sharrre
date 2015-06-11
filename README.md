@@ -27,9 +27,9 @@
 
 ### In theme folder
 
- Fully customizable option.
- The files reside on your theme folder.
- See examples/README. 
+ - Fully customizable option.
+ - The files reside on your theme folder.
+ - See examples/README.md 
  
 
  
