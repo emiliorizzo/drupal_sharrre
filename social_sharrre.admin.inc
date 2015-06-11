@@ -11,11 +11,11 @@
  * @see system_settings_form()
  */
  
-function sharrre_admin_form($form, &$form_state){
- $services = _sharrre_services(); 
- $settings = _sharrre_settings(); 
- $vals = _sharrre_get_settings();
- $conf_type = variable_get('sharrre_conf_type','template');
+function social_sharrre_admin_form($form, &$form_state){
+ $services = _social_sharrre_services(); 
+ $settings = _social_sharrre_settings(); 
+ $vals = _social_sharrre_get_settings();
+ $conf_type = variable_get('social_sharrre_conf_type','template');
  //Configuration type
  $form['conf'] = array(
     '#type' => 'fieldset',
@@ -23,7 +23,7 @@ function sharrre_admin_form($form, &$form_state){
     '#collapsible' => FALSE,
      );
 
- $form['conf']['sharrre_conf_type']=array(
+ $form['conf']['social_sharrre_conf_type']=array(
     '#type' => 'radios',
     '#title' => t('Select Configuration Type'),
     '#default_value' => $conf_type,
@@ -40,7 +40,7 @@ function sharrre_admin_form($form, &$form_state){
     '#collapsible' => FALSE,
     '#states' => array(
       'visible' => array(
-        ':input[name="sharrre_conf_type"]' => array('value' => 'manual'),
+        ':input[name="social_sharrre_conf_type"]' => array('value' => 'manual'),
        ),
       ),
      );
@@ -56,19 +56,19 @@ function sharrre_admin_form($form, &$form_state){
     '#collapsed' => TRUE,
      '#states' => array(
       'visible' => array(
-        ':input[name="'. 'sharrre_' . $service .'"]' => array('checked' => TRUE),
+        ':input[name="'. 'social_sharrre_' . $service .'"]' => array('checked' => TRUE),
        ),
       ),
      );
 
   if( $service != 'sharrre' ){
-    $form['conf']['sharrre_'.$service] = array(
+    $form['conf']['social_sharrre_'.$service] = array(
     '#type' => 'checkbox',
     '#title' => t("Enable @service icon",$targs),
-    '#default_value' => _sharrre_get_sett($vals,'sharrre',$service,false),
+    '#default_value' => _social_sharrre_get_sett($vals,'sharrre',$service,false),
     '#description' => t("Enable @service icon",$targs),
       '#states' => array(
-      'visible' => array(':input[name="sharrre_conf_type"]' => array('value' => 'manual'),
+      'visible' => array(':input[name="social_sharrre_conf_type"]' => array('value' => 'manual'),
        ),
       ),
     );
@@ -78,7 +78,7 @@ function sharrre_admin_form($form, &$form_state){
     '#size' => 20, 
     '#maxlength' => 64, 
     '#title' => t('Title'),
-    '#default_value' => _sharrre_get_sett($vals,$service,'title', $set['title']),
+    '#default_value' => _social_sharrre_get_sett($vals,$service,'title', $set['title']),
     '#description' => t("Text on @service icon",$targs),
     );
   }
@@ -87,7 +87,7 @@ function sharrre_admin_form($form, &$form_state){
      $form['manual'][$service][$service.'_'.$prop] = array(
                        '#type' => 'checkbox',
                        '#title' => $prop,
-                       '#default_value' => _sharrre_get_sett($vals,$service,$prop,FALSE),
+                       '#default_value' => _social_sharrre_get_sett($vals,$service,$prop,FALSE),
                        '#description' => t($desc['desc']),
                       );
     }
@@ -100,15 +100,15 @@ function sharrre_admin_form($form, &$form_state){
      '#collapsible' => FALSE,
      '#states' => array(
       'visible' => array(
-        ':input[name="sharrre_conf_type"]' => array('value' => 'template'),
+        ':input[name="social_sharrre_conf_type"]' => array('value' => 'template'),
        ),
       ),
      );
-    $form['template']['sharrre_template'] = array(
+    $form['template']['social_sharrre_template'] = array(
     '#type' => 'select',
     '#title' => t('Template'),
-    '#options' => _sharrre_get_templates(),
-    '#default_value' => variable_get('sharrre_template','example3'),
+    '#options' => _social_sharrre_get_templates(),
+    '#default_value' => variable_get('social_sharrre_template','example3'),
     '#description' => t('Select template'),
     );
     
@@ -119,32 +119,32 @@ function sharrre_admin_form($form, &$form_state){
     '#collapsible' => FALSE,
     '#states' => array(
       'visible' => array(
-        ':input[name="sharrre_conf_type"]' => array('value' => 'custom'),
+        ':input[name="social_sharrre_conf_type"]' => array('value' => 'custom'),
        ),
       ),
      );
     
-    $form['custom']['sharrre_custom_style_name'] = array(
+    $form['custom']['social_sharrre_custom_style_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Custom Style name'),
-    '#default_value' => variable_get('sharrre_custom_style_name',_sharrre_def_style_name()),
+    '#default_value' => variable_get('social_sharrre_custom_style_name',_social_sharrre_def_style_name()),
     '#description' => t('Write the name of your custom style name, if blank the default value is @default',
-    array('@default' => _sharrre_def_style_name())),
+    array('@default' => _social_sharrre_def_style_name())),
     );
     
     
 
  $form = system_settings_form($form);
- array_unshift($form['#submit'], 'sharrre_admin_form_submit');
+ array_unshift($form['#submit'], 'social_sharrre_admin_form_submit');
  return $form;
  }
  
  /**
  * Admin Form Submit Callback
  **/
-function sharrre_admin_form_submit($form,&$form_state){
- $services = _sharrre_services(); 
- $settings = array_keys(_sharrre_settings()); 
+function social_sharrre_admin_form_submit($form,&$form_state){
+ $services = _social_sharrre_services(); 
+ $settings = array_keys(_social_sharrre_settings()); 
  $settings = array_merge($settings, array_keys($services));
  $varr = array();
   foreach( $services as $service => $set){
@@ -160,7 +160,7 @@ function sharrre_admin_form_submit($form,&$form_state){
     }
    }
   }
- $form_state['values']['sharrre_settings'] = serialize($varr);
+ $form_state['values']['social_sharrre_settings'] = serialize($varr);
 }
 
  

@@ -7,10 +7,10 @@
 /**
  * Implements hook_help().
  **/
-function sharrre_help($path, $arg) {
+function social_sharrre_help($path, $arg) {
   switch ($path) {
-   case "admin/help#sharrre":
-   return '<p>' . t("Sharrre Module") . '</p>';
+   case "admin/help#social_sharrre":
+   return '<p>' . t("Social Sharrre Module") . '</p>';
    break;
   }
 }
@@ -18,13 +18,13 @@ function sharrre_help($path, $arg) {
 /**
  * Implements hook_menu().
  * */
-function sharrre_menu(){
+function social_sharrre_menu(){
   $items = array();
-  $items['admin/config/sharrre'] = array(
-        'title' => 'Sharrre',
-        'description' => 'Configuration for the Sharrre module.',
+  $items['admin/config/social_sharrre'] = array(
+        'title' => 'Social Sharrre',
+        'description' => 'Configuration for the Social Sharrre module.',
         'page callback' => 'drupal_get_form',
-        'page arguments' => array('sharrre_admin_form'),
+        'page arguments' => array('social_sharrre_admin_form'),
         'access arguments' => array('administer users'),
         'file' => 'sharrre.admin.inc',
         'type' => MENU_NORMAL_ITEM,
@@ -35,7 +35,7 @@ function sharrre_menu(){
 /**
  * Implements hook_libraries_info().
  */
-function sharrre_libraries_info() {
+function social_sharrre_libraries_info() {
   $libraries['sharrre'] = array(
     'name' => 'Sharrre - jQuery plugin for sharing buttons',
     'vendor url' => 'http://sharrre.com/',
@@ -55,7 +55,7 @@ function sharrre_libraries_info() {
  * Implements hook_libraries().
  */
  
-function sharrre_libraries() {
+function social_sharrre_libraries() {
   $libraries['sharrre'] = array(
     'title' => 'Sharrre - jQuery plugin for sharing buttons',
     'website' => 'http://sharrre.com/',
@@ -73,14 +73,14 @@ function sharrre_libraries() {
 * Implements hook_node_view().
 */
 
-function sharrre_node_view($node, $view_mode, $langcode){
+function social_sharrre_node_view($node, $view_mode, $langcode){
  global $base_url;
  $lib_path = libraries_get_path('sharrre');
  $mod_path = drupal_get_path('module', 'sharrre');
- $conf_type = variable_get('sharrre_conf_type','template');
- $services = _sharrre_services();
- $settings = _sharrre_settings();
- $setts = _sharrre_get_settings();
+ $conf_type = variable_get('social_sharrre_conf_type','template');
+ $services = _social_sharrre_services();
+ $settings = _social_sharrre_settings();
+ $setts = _social_sharrre_get_settings();
  $pref = 'sharrre-';
  $send = array();
  
@@ -91,7 +91,7 @@ function sharrre_node_view($node, $view_mode, $langcode){
   switch( $conf_type ){
     
    case 'template':
-    $template = variable_get('sharrre_template','example3');
+    $template = variable_get('social_sharrre_template','example3');
     $node->sharrre['template'] = $template;
     drupal_add_js(array('sharrre' => array('shphp' => '/' . $lib_path.'/sharrre.php',)), 'setting');
     drupal_add_js($mod_path . '/styles/'.$template . '/'. $template . '.js'); 
@@ -102,12 +102,12 @@ function sharrre_node_view($node, $view_mode, $langcode){
     foreach($services as $service => $title){
      if ( ( $service != 'sharrre' ) && ( $setts['sharrre'][$service] ) ){
       $node->sharrre['icons'][$service] = $node->title;
-      $send[$service] = _sharrre_fix_vals($setts[$service],$settings); 
+      $send[$service] = _social_sharrre_fix_vals($setts[$service],$settings); 
       $send[$service]['urlCurl'] = '/'.$lib_path.'/sharrre.php';
       $send[$service]['share'][$service] = (bool)$setts['sharrre'][$service];      
     }
    }
-    drupal_add_js(array('sharrre' => array('sharrre_php' => '/' . $lib_path.'/sharrre.php',
+    drupal_add_js(array('sharrre' => array('social_sharrre_php' => '/' . $lib_path.'/sharrre.php',
                                          'pref' => $pref,
                                          'setts' => drupal_json_encode($send),
                                          )), 'setting');
@@ -118,8 +118,8 @@ function sharrre_node_view($node, $view_mode, $langcode){
     
    case 'custom':
     $dir = path_to_theme();
-    $template = variable_get('sharrre_custom_style_name',_sharrre_def_style_name());
-    $base_name = _sharrre_check_template_files($template, $dir);
+    $template = variable_get('social_sharrre_custom_style_name',_social_sharrre_def_style_name());
+    $base_name = _social_sharrre_check_template_files($template, $dir);
      
      if( $base_name ){
        drupal_add_js( $base_name.'.js' );
@@ -132,17 +132,17 @@ function sharrre_node_view($node, $view_mode, $langcode){
 }
 
 
-function sharrre_preprocess_node(&$variables) {
+function social_sharrre_preprocess_node(&$variables) {
  global $base_url;
  
    $url = $base_url . url( 'node/'.$variables['node']->nid);
 
   if( isset($variables['sharrre']['icons']) ){
-  $variables['sharrre_icons'] = array('#type' => 'container',
+  $variables['social_sharrre_icons'] = array('#type' => 'container',
                                       '#attributes' => array('class' => array('sharrre-icons'),),);
    
    foreach( $variables['sharrre']['icons'] as $service => $title){
-    $variables['sharrre_icons'][$service] = array(
+    $variables['social_sharrre_icons'][$service] = array(
      '#type' => 'container',
      '#attributes' => array(
      'class' => array($variables['sharrre']['prefix'].strtolower($service)),
@@ -174,7 +174,7 @@ function sharrre_preprocess_node(&$variables) {
      $form['container']['icons']['#attributes']['data-title'] = t('share this page');
     break;
    }
-  $variables['sharrre_icons'] = $form;
+  $variables['social_sharrre_icons'] = $form;
  }
 }
 
@@ -182,7 +182,7 @@ function sharrre_preprocess_node(&$variables) {
  * Helper Functions
  */
  
-function _sharrre_services(){
+function _social_sharrre_services(){
  return array('sharrre' => array(),
               'googlePlus' => array('title' => '+1'),
               'facebook'=> array('title' => 'like'),
@@ -195,23 +195,23 @@ function _sharrre_services(){
               );
 }
 
-function _sharrre_settings(){
-return array( 'title' => _sharrre_setting_costructor('Title','text',NULL),
-              'shorterTotal' => _sharrre_setting_costructor('Shorter Total'),
-              'enableHover'=> _sharrre_setting_costructor('Enable Hover'),
-              'enableCounter'=> _sharrre_setting_costructor('Enable Counter'),
-              'enableTracking'=> _sharrre_setting_costructor('Enable Tracking'),
+function _social_sharrre_settings(){
+return array( 'title' => _social_sharrre_setting_costructor('Title','text',NULL),
+              'shorterTotal' => _social_sharrre_setting_costructor('Shorter Total'),
+              'enableHover'=> _social_sharrre_setting_costructor('Enable Hover'),
+              'enableCounter'=> _social_sharrre_setting_costructor('Enable Counter'),
+              'enableTracking'=> _social_sharrre_setting_costructor('Enable Tracking'),
               ); 
 }
 
-function _sharrre_setting_costructor($desc,$type='boolean',$def=0){
+function _social_sharrre_setting_costructor($desc,$type='boolean',$def=0){
  return array('desc' => $desc,
               'type' => $type,
               'def' => $def,
                );
 }
 
-function _sharrre_get_sett($settings,$context,$prop,$def){
+function _social_sharrre_get_sett($settings,$context,$prop,$def){
  if( is_array( $settings )){
   if( isset( $settings[$context][$prop] ) ){
    return $settings[$context][$prop];
@@ -220,26 +220,26 @@ function _sharrre_get_sett($settings,$context,$prop,$def){
  }
 }
 
-function _sharrre_get_settings(){
-  $vals = variable_get('sharrre_settings',NULL);
+function _social_sharrre_get_settings(){
+  $vals = variable_get('social_sharrre_settings',NULL);
  if( $vals ){
   $vals = unserialize($vals);
   return $vals;
  }
-return _sharrre_def_values();
+return _social_sharrre_def_values();
 }
 
 // Return array with def  values if not present 
-function _sharrre_def_values($vals = array()){
- $services =  _sharrre_services();
- $settings = _sharrre_settings();
+function _social_sharrre_def_values($vals = array()){
+ $services =  _social_sharrre_services();
+ $settings = _social_sharrre_settings();
  $res = array();
   foreach($services as $service => $set){
      $val = array();
      if( !empty($vals[$service]) ){
       $val = $vals[$service];
      }
-     $res[$service] = _sharrre_set_def($settings,$set,$val);
+     $res[$service] = _social_sharrre_set_def($settings,$set,$val);
      if( $service == 'sharrre'  ){
       
      }  
@@ -248,7 +248,7 @@ return $res;
 }
 
 // Set derault values for each setting
-function _sharrre_set_def($settings,$set,$vals){
+function _social_sharrre_set_def($settings,$set,$vals){
   $res = array();
  foreach( $settings as $k => $setting ){
   if( empty( $vals[$k] )  ){
@@ -270,16 +270,16 @@ return $res;
 }
 
 // Fix values to send as json
-function _sharrre_fix_vals($vals,$settings){
+function _social_sharrre_fix_vals($vals,$settings){
  foreach( $vals as $set => $data ){
   if( isset( $settings[$set]['type'] ) ){
-   $vals[$set] = _sharrre_type($data,$settings[$set]['type']);
+   $vals[$set] = _social_sharrre_type($data,$settings[$set]['type']);
   }
  } 
 return $vals;
 }
 
-function _sharrre_type($val,$type){
+function _social_sharrre_type($val,$type){
  switch($type){
    case 'boolean':
     $val = (boolean)$val;
@@ -294,13 +294,13 @@ return $val;
 
 
 /* Return Template name and descriptions */
-function  _sharrre_get_templates($check = true){
+function  _social_sharrre_get_templates($check = true){
  $templates = array('example2' => 'Example 2 from Sharrre',
                     'example3' => 'Example 3 from Sharrre',
                     );
   if( $check ){
    foreach ($templates as $t => $td) {
-    if ( !_sharrre_check_template_files($t) ){
+    if ( !_social_sharrre_check_template_files($t) ){
      unset($templates[$t]);
     }
    }
@@ -310,7 +310,7 @@ function  _sharrre_get_templates($check = true){
 
  
  /* Checks is style files and dir exists */
-function _sharrre_check_template_files($template, $dir = NULL){
+function _social_sharrre_check_template_files($template, $dir = NULL){
  if(! $dir ) $dir = drupal_get_path('module','sharrre') . '/styles';
  $dir = $dir . '/' . $template;
    if( is_dir($dir) ){
@@ -324,7 +324,7 @@ function _sharrre_check_template_files($template, $dir = NULL){
 
 
 /* Return Default template style name */
-function _sharrre_def_style_name(){
+function _social_sharrre_def_style_name(){
  return 'sharrre-style';
 }
 
