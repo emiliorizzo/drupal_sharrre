@@ -135,8 +135,8 @@ function sharrre_node_view($node, $view_mode, $langcode){
 function sharrre_preprocess_node(&$variables) {
  global $base_url;
  
-   $url = $base_url . url('/node/'.$variables['node']->nid);
- 
+   $url = $base_url . url( 'node/'.$variables['node']->nid);
+
   if( isset($variables['sharrre']['icons']) ){
   $variables['sharrre_icons'] = array('#type' => 'container',
                                       '#attributes' => array('class' => array('sharrre-icons'),),);
