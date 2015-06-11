@@ -117,6 +117,17 @@ function sharrre_node_view($node, $view_mode, $langcode){
    break;
     
    case 'custom':
+    $dir = path_to_theme();
+    $template = 'sharrre-style';
+    $base_name = _sharrre_check_template_files($template, $dir);
+     
+     if( $base_name ){
+       drupal_add_js( $base_name.'.js' );
+       drupal_add_css( $base_name.'.css' );
+       drupal_add_js(array('sharrre' => array('shphp' => '/' . $lib_path.'/sharrre.php',)), 'setting');
+       $node->sharrre['template'] = $template;
+     }
+   
    break;   
   }
 }
@@ -141,16 +152,18 @@ function sharrre_preprocess_node(&$variables) {
   } 
  
  }
- else if( $variables['sharrre']['template'] ){
+ else if( isset($variables['sharrre']['template']) ){
+  $template = $variables['sharrre']['template'];
+  
   $form['container'] = array('#type' => 'container',
-                           '#attributes'=>array('class' =>array()),
+                           '#attributes'=>array('class' =>array($template)),
   );
   $form['container']['icons'] = array('#type' => 'container',
                                    '#attributes'=>array('class' => array('sharrre-icons'),
                                                        'data-url' => array($url),),
   );
   
-   switch($variables['sharrre']['template']){
+   switch($template){
      
     case 'example2':
      $form['container']['#attributes']['class'][] = 'example2';
@@ -161,20 +174,10 @@ function sharrre_preprocess_node(&$variables) {
      $form['container']['icons']['#attributes']['data-text'] = t('Share me');
      $form['container']['icons']['#attributes']['data-title'] = t('share this page');
     break;
-    
-    default:
-     $form = NULL;
-    break;
-    
    }
   $variables['sharrre_icons'] = $form;
  }
 }
-
-
-
-
-
 
 /**
  * Helper Functions
@@ -308,11 +311,13 @@ function  _sharrre_get_templates($check = true){
 
  
  /* Checks is style files and dir exists */
-function _sharrre_check_template_files($template){
-  $dir = drupal_get_path('module','sharrre') . '/styles/'.$template;
+function _sharrre_check_template_files($template, $dir = NULL){
+ if(! $dir ) $dir = drupal_get_path('module','sharrre') . '/styles';
+ $dir = $dir . '/' . $template;
    if( is_dir($dir) ){
-    if( is_file($dir.'/'.$template.'.js') && is_file($dir.'/'.$template.'.css') ){
-     return TRUE;
+    $base_name = $dir.'/'.$template;
+    if( is_file( $base_name . '.js' ) && is_file( $base_name . '.css' ) ){
+     return $base_name;
     }
    }
  return FALSE;
