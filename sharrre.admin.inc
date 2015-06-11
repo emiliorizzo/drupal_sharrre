@@ -16,11 +16,10 @@ function sharrre_admin_form($form, &$form_state){
  $settings = _sharrre_settings(); 
  $vals = _sharrre_get_settings();
  $conf_type = variable_get('sharrre_conf_type','template');
- 
  //Configuration type
  $form['conf'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Configuration type'),
+    '#title' => t('Sharrre Configuration'),
     '#collapsible' => FALSE,
      );
 
@@ -66,6 +65,10 @@ function sharrre_admin_form($form, &$form_state){
     '#title' => t("Enable @service icon",$targs),
     '#default_value' => _sharrre_get_sett($vals,'sharrre',$service,false),
     '#description' => t("Enable @service icon",$targs),
+      '#states' => array(
+      'visible' => array(':input[name="sharrre_conf_type"]' => array('value' => 'manual'),
+       ),
+      ),
     );
     
     $form['manual'][$service][$service.'_title'] = array(
