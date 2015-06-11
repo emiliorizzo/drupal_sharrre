@@ -118,7 +118,7 @@ function sharrre_node_view($node, $view_mode, $langcode){
     
    case 'custom':
     $dir = path_to_theme();
-    $template = 'sharrre-style';
+    $template = variable_get('sharrre_custom_style_name',_sharrre_def_style_name());
     $base_name = _sharrre_check_template_files($template, $dir);
      
      if( $base_name ){
@@ -127,7 +127,6 @@ function sharrre_node_view($node, $view_mode, $langcode){
        drupal_add_js(array('sharrre' => array('shphp' => '/' . $lib_path.'/sharrre.php',)), 'setting');
        $node->sharrre['template'] = $template;
      }
-   
    break;   
   }
 }
@@ -324,5 +323,8 @@ function _sharrre_check_template_files($template, $dir = NULL){
 }
 
 
-
+/* Return Default template style name */
+function _sharrre_def_style_name(){
+ return 'sharrre-style';
+}
 

@@ -111,6 +111,28 @@ function sharrre_admin_form($form, &$form_state){
     '#default_value' => variable_get('sharrre_template','example3'),
     '#description' => t('Select template'),
     );
+    
+   // Custom Configuration
+   $form['custom'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Custom Configuration'),
+    '#collapsible' => FALSE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="sharrre_conf_type"]' => array('value' => 'custom'),
+       ),
+      ),
+     );
+    
+    $form['custom']['sharrre_custom_style_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom Style name'),
+    '#default_value' => variable_get('sharrre_custom_style_name',_sharrre_def_style_name()),
+    '#description' => t('Write the name of your custom style name, if blank the default value is @default',
+    array('@default' => _sharrre_def_style_name())),
+    );
+    
+    
 
  $form = system_settings_form($form);
  array_unshift($form['#submit'], 'sharrre_admin_form_submit');
