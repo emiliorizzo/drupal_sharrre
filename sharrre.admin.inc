@@ -27,7 +27,7 @@ function sharrre_admin_form($form, &$form_state){
     '#type' => 'radios',
     '#title' => t('Select Configuration Type'),
     '#default_value' => $conf_type,
-    '#options' => array('template' => t('Template'), 'manual' => t('Manual'),'custom' => 'Custom Template'),
+    '#options' => array('template' => t('Sharrre Template'), 'manual' => t('Manual'),'custom' => 'In theme Folder'),
     '#description' => t('Select Configuration type'),
      );
      
@@ -115,7 +115,7 @@ function sharrre_admin_form($form, &$form_state){
    // Custom Configuration
    $form['custom'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Custom Configuration'),
+    '#title' => t('In Theme Folder Configuration'),
     '#collapsible' => FALSE,
     '#states' => array(
       'visible' => array(
