@@ -11,9 +11,9 @@
 - Install Libraries API module,http://drupal.org/project/libraries
 - Download Sharrre from http://sharrre.com/ 
 - Copy Sharrre plugin files in sites/all/libraries/sharrre
-- Install and enable sharrre module
-- Goto -> admin/config/sharrre, and configure module
-- Put  <?php print render($sharrre_icons);?> in node-tpl files.
+- Install and enable soscial_sharrre module
+- Goto -> admin/config/social_sharrre, and configure module
+- Put   <?php print render($social_sharrre_icons);?> in node-tpl files.
 
 ## Configuration Options
 

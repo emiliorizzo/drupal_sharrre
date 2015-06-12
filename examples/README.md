@@ -3,12 +3,12 @@
 ## In theme Folder example
 
 - Copy 'sharrre-style' folder to your theme folder
-- Go to -> admin/config/sharre -> Configuration Type -> Select: 'In theme Folder' 
+- Go to -> admin/config/social_sharre -> Configuration Type -> Select: 'In theme Folder' 
 - Save Configuration
  
 you can change 'sharrre-style' with the name you want.
 
-- Go to -> admin/config/sharre
+- Go to -> admin/config/social_sharre
 - -> In Theme Folder Configuration -> Custom Style Name: (ex) 'my-style-name'
  
  - Rename:
