@@ -26,7 +26,7 @@ function social_sharrre_menu(){
         'page callback' => 'drupal_get_form',
         'page arguments' => array('social_sharrre_admin_form'),
         'access arguments' => array('administer users'),
-        'file' => 'sharrre.admin.inc',
+        'file' => 'social_sharrre.admin.inc',
         'type' => MENU_NORMAL_ITEM,
         );
   return $items;
