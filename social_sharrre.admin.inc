@@ -30,8 +30,6 @@ function social_sharrre_admin_form($form, &$form_state){
     '#options' => array('template' => t('Sharrre Template'), 'manual' => t('Manual'),'custom' => 'In theme Folder'),
     '#description' => t('Select Configuration type'),
      );
-     
-     
  
  // Manual Configuration
    $form['manual'] = array(
@@ -131,8 +129,6 @@ function social_sharrre_admin_form($form, &$form_state){
     '#description' => t('Write the name of your custom style name, if blank the default value is @default',
     array('@default' => _social_sharrre_def_style_name())),
     );
-    
-    
 
  $form = system_settings_form($form);
  array_unshift($form['#submit'], 'social_sharrre_admin_form_submit');
