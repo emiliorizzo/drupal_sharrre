@@ -5,6 +5,12 @@
  */
 
 /**
+ * Define Settings
+ * **/ 
+define('SOCIAL_SHARRRE_CONF_TYPE','template'); 
+define('SOCIAL_SHARRRE_TEMPLATE','example3'); 
+ 
+/**
  * Implements hook_help().
  **/
 function social_sharrre_help($path, $arg) {
@@ -76,8 +82,8 @@ function social_sharrre_libraries() {
 function social_sharrre_node_view($node, $view_mode, $langcode){
  global $base_url;
  $lib_path = libraries_get_path('sharrre');
- $mod_path = drupal_get_path('module', 'sharrre');
- $conf_type = variable_get('social_sharrre_conf_type','template');
+ $mod_path = drupal_get_path('module', 'social_sharrre');
+ $conf_type = variable_get('social_sharrre_conf_type',SOCIAL_SHARRRE_CONF_TYPE);
  $services = _social_sharrre_services();
  $settings = _social_sharrre_settings();
  $setts = _social_sharrre_get_settings();
@@ -85,14 +91,14 @@ function social_sharrre_node_view($node, $view_mode, $langcode){
  $send = array();
  
  $url = $base_url . url('/node/'.$node->nid);
- $node->sharrre['prefix'] = $pref;
+ $node->social_sharrre['prefix'] = $pref;
  drupal_add_js($lib_path . '/jquery.sharrre.js');
   
   switch( $conf_type ){
     
    case 'template':
-    $template = variable_get('social_sharrre_template','example3');
-    $node->sharrre['template'] = $template;
+    $template = variable_get('social_sharrre_template',SOCIAL_SHARRRE_TEMPLATE);
+    $node->social_sharrre['template'] = $template;
     drupal_add_js(array('sharrre' => array('shphp' => '/' . $lib_path.'/sharrre.php',)), 'setting');
     drupal_add_js($mod_path . '/styles/'.$template . '/'. $template . '.js'); 
     drupal_add_css($mod_path . '/styles/'.$template . '/'. $template . '.css');

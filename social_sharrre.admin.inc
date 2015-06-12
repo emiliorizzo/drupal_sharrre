@@ -15,7 +15,7 @@ function social_sharrre_admin_form($form, &$form_state){
  $services = _social_sharrre_services(); 
  $settings = _social_sharrre_settings(); 
  $vals = _social_sharrre_get_settings();
- $conf_type = variable_get('social_sharrre_conf_type','template');
+ $conf_type = variable_get('social_sharrre_conf_type',SOCIAL_SHARRRE_CONF_TYPE);
  //Configuration type
  $form['conf'] = array(
     '#type' => 'fieldset',
@@ -108,7 +108,7 @@ function social_sharrre_admin_form($form, &$form_state){
     '#type' => 'select',
     '#title' => t('Template'),
     '#options' => _social_sharrre_get_templates(),
-    '#default_value' => variable_get('social_sharrre_template','example3'),
+    '#default_value' => variable_get('social_sharrre_template',SOCIAL_SHARRRE_TEMPLATE),
     '#description' => t('Select template'),
     );
     
