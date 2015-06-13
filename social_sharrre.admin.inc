@@ -45,15 +45,17 @@ function social_sharrre_admin_form($form, &$form_state){
   
   foreach($services as $service => $set){
    $targs = array('@service' => ucfirst($service));
+   $fs_title = ( $service == 'sharrre' ? t('Global Override Settings') : t('@service Settings',$targs) ); 
+   $collap   = ( $service == 'sharrre' ? FALSE : TRUE ); 
    
    $form['manual'][$service] = array(
     '#type' => 'fieldset',
-    '#title' => t('@service Settings',$targs),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#title' => $fs_title,
+    '#collapsible' => $collap,
+    '#collapsed' => FALSE,
      '#states' => array(
       'visible' => array(
-        ':input[name="'. 'social_sharrre_' . $service .'"]' => array('checked' => TRUE),
+        ':input[name="'. 'sharrre_' . $service .'"]' => array('checked' => TRUE),
        ),
       ),
      );
@@ -81,11 +83,15 @@ function social_sharrre_admin_form($form, &$form_state){
   }
    foreach($settings as $prop => $desc){
     if( $prop != 'title' ){
+     $state = ($service == 'sharrre' ? NULL : array('enabled' => 
+     array(':input[name="sharrre_'.$prop.'"]' => array('checked' => FALSE)),));
+     
      $form['manual'][$service][$service.'_'.$prop] = array(
                        '#type' => 'checkbox',
                        '#title' => $prop,
                        '#default_value' => _social_sharrre_get_sett($vals,$service,$prop,FALSE),
                        '#description' => t($desc['desc']),
+                       '#states' => $state,
                       );
     }
    }
