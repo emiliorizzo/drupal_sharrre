@@ -45,7 +45,6 @@ function social_sharrre_admin_form($form, &$form_state){
   
   foreach($services as $service => $set){
    $targs = array('@service' => ucfirst($service));
-   $pref = 'sharre_'.$service;
    
    $form['manual'][$service] = array(
     '#type' => 'fieldset',
@@ -60,7 +59,7 @@ function social_sharrre_admin_form($form, &$form_state){
      );
 
   if( $service != 'sharrre' ){
-    $form['conf']['social_sharrre_'.$service] = array(
+    $form['conf']['sharrre_'.$service] = array(
     '#type' => 'checkbox',
     '#title' => t("Enable @service icon",$targs),
     '#default_value' => _social_sharrre_get_sett($vals,'sharrre',$service,false),
@@ -143,6 +142,7 @@ function social_sharrre_admin_form_submit($form,&$form_state){
  $settings = array_keys(_social_sharrre_settings()); 
  $settings = array_merge($settings, array_keys($services));
  $varr = array();
+ 
   foreach( $services as $service => $set){
    foreach( $settings as $prop){
     if( isset( $form_state['values'][$service.'_'.$prop] ) ){
