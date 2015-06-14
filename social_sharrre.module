@@ -169,6 +169,15 @@ function social_sharrre_preprocess_node(&$variables) {
                                    '#attributes'=>array('class' => array('sharrre-icons'),
                                                        'data-url' => array($url),),
   );
+  /* Add template container to read from js 
+   * filled with defaul sharrre template
+   * */
+  $form['html_template'] = array('#type' => 'container',
+                                    '#attributes' => array('id' => 'sharrre-html-template',
+                                    'style' => 'display:none'),
+                                    );
+  $form['html_template']['html'] = array('#markup' => '<div class="box"><a class="count" href="#">{total}</a><a class="share" href="#">'.t('Share me').'</a></div>',
+  );
   
    switch($template){
      
