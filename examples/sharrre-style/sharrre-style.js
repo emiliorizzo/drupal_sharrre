@@ -2,6 +2,14 @@
   Drupal.behaviors.sharrre = {
     attach: function (context, settings) {
      var shphp = Drupal.settings.sharrre.shphp;
+     var template;
+      
+      /* html template, see examples/README.md */
+      if( $('#sharrre-html-template').length ){
+       template = $('#sharrre-html-template').html();
+      $('#sharrre-html-template').remove();
+      }
+     
         $( '.sharrre-icons' ).each(function(i, obj){
           $( this ).sharrre({
               share: {
@@ -10,7 +18,14 @@
                googlePlus: true
                },
                urlCurl:shphp,
-               template: '<div class="box"><div class="left">Share</div><div class="middle"><a href="#" class="facebook">f</a><a href="#" class="twitter">t</a><a href="#" class="googleplus">+1</a></div><div class="right">{total}</div></div>',
+               
+               /* you can write html template here or set 
+                * $variables['social_sharrre_icons']['html_template']['html']['#markup'] = [your_html_code]
+                * in theme_node_preprocess
+                *  */
+               template: template,
+               //template: '<div class="box"><div class="left">Share</div><div class="middle"><a href="#" class="facebook">f</a><a href="#" class="twitter">t</a><a href="#" class="googleplus">+1</a></div><div class="right">{total}</div></div>',
+               
                enableHover: false,
                render: function(api, options){
                $(api.element).on('click', '.twitter', function() {

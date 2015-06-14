@@ -2,6 +2,7 @@
   Drupal.behaviors.sharrre = {
     attach: function (context, settings) {
      var shphp = Drupal.settings.sharrre.shphp;
+     $('#sharrre-html-template').remove();  
         $( '.sharrre-icons' ).each(function(i, obj){
           $( this ).sharrre({
               share: {
