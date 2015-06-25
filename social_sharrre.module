@@ -22,6 +22,16 @@ function social_sharrre_help($path, $arg) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function social_sharrre_permission() {
+  return array('administer social sharrre' => array(
+      'title' => t('Administer Social Sharrre'),
+      'description' => t('Administer the Social Sharrre Module'),
+    ), );
+}
+
+/**
  * Implements hook_menu().
  * */
 function social_sharrre_menu() {
@@ -31,7 +41,7 @@ function social_sharrre_menu() {
     'description' => 'Configuration for the Social Sharrre module.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('social_sharrre_admin_form'),
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('administer social sharrre'),
     'file' => 'social_sharrre.admin.inc',
     'type' => MENU_NORMAL_ITEM,
   );
