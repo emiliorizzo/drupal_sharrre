@@ -5,3 +5,42 @@
  */
 
 
+/**
+* Implements hook_requirements().
+*/
+function social_sharrre_requirements($phase){
+  $requirements = array();
+  $t = get_t();
+
+    // Check to see if the sharrre library is available
+  if ($phase == 'runtime') {
+   $library = libraries_detect('sharrre');
+   if ($library['installed']) {
+    //check version
+      if($library['version']!='1.3.5'){ // the module is only tested with this version
+        $requirements['sharrre'] = array(
+          'value' => $library['version'],
+          'description' => $t('Incompatible version detected. The Sharrre library version must be from the %version.x branch.', array('%version' => '1.3.5')),
+          'severity' => REQUIREMENT_WARNING,
+          );
+      }
+      else{
+        $requirements['sharrre'] = array(
+          'value' => $library['version'],
+          'severity' => REQUIREMENT_OK,
+          );
+      }
+    }
+   else { // library is not installed
+    $requirements['sharrre'] = array(
+      'value' => $t('Sharrre library 1.3.5 not found.'),
+      'description' => $t('The Sharrre library could not be detected. Please consult the <a href="@url">README.md</a> for installation instructions.',
+        array('@url'=>'/'.drupal_get_path('module', 'social_sharrre').'/README.md'
+          )),
+      'severity' => REQUIREMENT_ERROR,
+      );
+  }
+  $requirements['sharrre']['title'] = $t('Sharrre Library');
+}
+return $requirements;
+}
