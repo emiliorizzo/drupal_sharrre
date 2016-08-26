@@ -46,7 +46,11 @@ function social_sharrre_libraries_info() {
     'name' => 'Sharrre - jQuery plugin for sharing buttons',
     'vendor url' => 'http://sharrre.com/',
     'download url' => 'https://github.com/Julienh/Sharrre/archive/1.3.5.zip',
-    'version callback' => 'social_sharrre_version_callback',
+    'version arguments' => array(
+      'file' => 'jquery.sharrre.min.js',
+      'pattern' => '/Version:\s[a-z]+\s([\d.]+)/' ,
+      'lines' => 5
+      ),
     'files' => array(
       'js' => array(
         'jquery.sharrre.min.js',
@@ -58,7 +62,6 @@ function social_sharrre_libraries_info() {
     );
   return $libraries;
 }
-
 
 /**
 * Implements hook_node_view().
@@ -183,13 +186,6 @@ else if( isset($variables['social_sharrre']['template']) ){
 /**
  * Helper Functions
  */
-
-/**
-* Sharrre Library version callback
-*/
-function social_sharrre_version_callback(){
-  return TRUE;
-}
 
 function _social_sharrre_services(){
  return array('sharrre' => array(),
@@ -350,4 +346,5 @@ return FALSE;
 function _social_sharrre_def_style_name(){
  return 'sharrre-style';
 }
+
 
