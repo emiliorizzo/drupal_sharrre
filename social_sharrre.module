@@ -47,8 +47,8 @@ function social_sharrre_libraries_info() {
     'vendor url' => 'http://sharrre.com/',
     'download url' => 'https://github.com/Julienh/Sharrre/archive/1.3.5.zip',
     'version arguments' => array(
-      'file' => 'jquery.sharrre.min.js',
-      'pattern' => '/Version:\s[a-z]+\s([\d.]+)/' ,
+      'file' => 'src/js/jquery.sharrre.js',
+      'pattern' => '/Version:\s([\d.]+)/' ,
       'lines' => 5
       ),
     'files' => array(

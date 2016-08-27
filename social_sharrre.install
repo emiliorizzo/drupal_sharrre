@@ -11,36 +11,60 @@
 function social_sharrre_requirements($phase){
   $requirements = array();
   $t = get_t();
+  $tested_version = '2.0.0';
+  $vok = array('%version' => $tested_version);
 
-    // Check to see if the sharrre library is available
+// Check to see if the sharrre library is available
   if ($phase == 'runtime') {
-   $library = libraries_detect('sharrre');
-   if ($library['installed']) {
-    //check version
-      if($library['version']!='1.3.5'){ // the module is only tested with this version
-        $requirements['sharrre'] = array(
-          'value' => $library['version'],
-          'description' => $t('Incompatible version detected. The Sharrre library version must be from the %version.x branch.', array('%version' => '1.3.5')),
-          'severity' => REQUIREMENT_WARNING,
-          );
-      }
-      else{
+    $library = libraries_detect('sharrre');
+    if ($library['installed']) {
+//check version
+      if($library['version'] == $tested_version){
         $requirements['sharrre'] = array(
           'value' => $library['version'],
           'severity' => REQUIREMENT_OK,
           );
       }
+      else{
+        $varr = _social_sharrre_version_arr($library['version']);
+        if($varr !== false){
+          if($varr[0] == '2'){
+            $requirements['sharrre'] = array(
+              'value' => $library['version'],
+              'description' => $t('Sharrre version %detected detected, social_sharrre module is only tested with sharrre %version',
+                ($vok + array('%detected'=>$library['version']))),
+              'severity' => REQUIREMENT_WARNING,
+              );
+          }
+          else{
+            $requirements['sharrre'] = array(
+              'value' => $library['version'],
+              'description' => $t('Incompatible version detected. The Sharrre library version must be from the %version branch.',$vok),
+              'severity' => REQUIREMENT_WARNING,
+              );
+          }
+        }
+      }
     }
-   else { // library is not installed
-    $requirements['sharrre'] = array(
-      'value' => $t('Sharrre library 1.3.5 not found.'),
-      'description' => $t('The Sharrre library could not be detected. Please consult the <a href="@url">README.md</a> for installation instructions.',
-        array('@url'=>'/'.drupal_get_path('module', 'social_sharrre').'/README.md'
-          )),
-      'severity' => REQUIREMENT_ERROR,
-      );
-  }
-  $requirements['sharrre']['title'] = $t('Sharrre Library');
+else { // library is not installed
+  $requirements['sharrre'] = array(
+    'value' => $t('Sharrre library %version not found.',$vok),
+    'description' => $t('The Sharrre library could not be detected. Please consult the <a href="@url">README.md</a> for installation instructions.',
+      array('@url'=>'/'.drupal_get_path('module', 'social_sharrre').'/README.md'
+        )),
+    'severity' => REQUIREMENT_ERROR,
+    );
+}
+$requirements['sharrre']['title'] = $t('Sharrre Library');
 }
 return $requirements;
 }
+
+function _social_sharrre_version_arr($version){
+  $varr = explode('.',$version);
+  if(is_array($varr) && (count($varr) == 3) ){
+    return $varr;
+  }
+  return false;
+}
+
