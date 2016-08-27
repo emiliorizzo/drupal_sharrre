@@ -68,7 +68,6 @@ function social_sharrre_libraries_info() {
 */
 
 function social_sharrre_node_view($node, $view_mode, $langcode){
- global $base_url;
  $lib_path = libraries_get_path('sharrre');
  $mod_path = drupal_get_path('module', 'social_sharrre');
  $conf_type = variable_get('social_sharrre_conf_type',SOCIAL_SHARRRE_CONF_TYPE);
