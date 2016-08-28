@@ -78,7 +78,7 @@ function social_sharrre_node_view($node, $view_mode, $langcode){
  $send = array();
 
  $node->social_sharrre['prefix'] = $pref;
- drupal_add_js($lib_path . '/jquery.sharrre.js');
+ drupal_add_js($lib_path . '/jquery.sharrre.min.js');
 
  switch( $conf_type ){
 
