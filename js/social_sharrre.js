@@ -9,7 +9,7 @@
       for (var s in setts) {
         if (setts.hasOwnProperty(s)) {
           var arr = $('.' + pref + s.toLowerCase()).get();
-          for (i = 0; i < arr.length; i++) {
+          for (var i = 0; i < arr.length; i++) {
             var obj = arr[i];
             var sobj = setts[s];
             sobj.srv = s;
